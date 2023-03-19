@@ -30,19 +30,19 @@ travel_df=travel_df.groupby('date').sum()
 
 
 fig = go.Figure(data=[
-    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['clicks_x'], marker_color='pink',
-            text=travel_df['clicks_x']),
-    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['clicks_x'], marker_color='blue',
-            text=equipment_df['clicks_x'])
+    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['clicks'], marker_color='pink',
+            text=travel_df['clicks']),
+    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['clicks'], marker_color='blue',
+            text=equipment_df['clicks'])
 ])
 fig.update_layout(barmode='group', title='The preformence of the transactional pages')
 fig.show()
 
 fig = go.Figure(data=[
-    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['impressions_x'], marker_color='pink',
-            text=travel_df['clicks_x']),
-    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['impressions_x'], marker_color='blue',
-            text=equipment_df['clicks_x'])
+    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['impressions'], marker_color='pink',
+            text=travel_df['impressions']),
+    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['impressions'], marker_color='blue',
+            text=equipment_df['impressions'])
 ])
 fig.update_layout(barmode='group')
 fig.show()
