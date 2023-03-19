@@ -1,0 +1,48 @@
+import pandas as pd
+import advertools as adv
+import plotly.graph_objects as go
+import datetime
+
+df1=pd.read_csv('/Users/abdulrahmanhenedy/PycharmProjects/tipsabout/updates/datetopic.csv')
+df2=pd.read_csv("/Users/abdulrahmanhenedy/PycharmProjects/tipsabout/money_pages_preformence/files/Main_pages_data.csv")
+
+df3=df1[df1['page'].isin(df2['URL'])]
+
+df3.to_csv('df3.csv')
+
+df=pd.read_csv('df3.csv')
+
+df['date'] = pd.to_datetime(df['date'], format='%Y-%m')#.astype('str')
+df['Month'] = df['date'].dt.month_name()
+df['Year'] = df['date'].dt.year
+df['Month'] = df['Month'].astype('str')
+df['Year'] = df['Year'].astype('str')
+df['date'] = pd.concat([df['Month'], df['Year']], axis=1).apply(lambda x: ' '.join(x), axis=1)
+df['date'] = pd.to_datetime(df['date'])
+df=df.sort_values('date', ascending=False)
+
+equipment_df = df.query('Cluster == "equipments"')
+equipment_df=equipment_df.groupby('date').sum()
+
+
+travel_df = df.query('Cluster == "Travel"')
+travel_df=travel_df.groupby('date').sum()
+
+
+fig = go.Figure(data=[
+    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['clicks_x'], marker_color='pink',
+            text=travel_df['clicks_x']),
+    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['clicks_x'], marker_color='blue',
+            text=equipment_df['clicks_x'])
+])
+fig.update_layout(barmode='group', title='The preformence of the transactional pages')
+fig.show()
+
+#fig = go.Figure(data=[
+#    go.Line(name='Travel Category', x=travel_df.index, y=travel_df['impressions_x'], marker_color='pink',
+#            text=travel_df['clicks_x']),
+#    go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['impressions_x'], marker_color='blue',
+#            text=equipment_df['clicks_x'])
+#])
+#fig.update_layout(barmode='group')
+#fig.show()
