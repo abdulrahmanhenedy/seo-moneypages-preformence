@@ -3,7 +3,7 @@ import advertools as adv
 import plotly.graph_objects as go
 import datetime
 
-df1=pd.read_csv('/Users/abdulrahmanhenedy/PycharmProjects/tipsabout/updates/datetopic.csv')
+df1=pd.read_csv('/Users/abdulrahmanhenedy/PycharmProjects/tipsabout/updates/datetopic.csv') #GSC data (it must be clustered: it has a column called "Cluster" with the topic of the URL. If you couldn't make it then ensure the money pages are clustered within topics. You can do this manually)
 df2=pd.read_csv("/Users/abdulrahmanhenedy/PycharmProjects/tipsabout/money_pages_preformence/files/Main_pages_data.csv")
 
 df3=df1[df1['page'].isin(df2['URL'])]
@@ -35,7 +35,7 @@ fig = go.Figure(data=[
     go.Line(name='Equipments Category', x=equipment_df.index, y=equipment_df['clicks'], marker_color='blue',
             text=equipment_df['clicks'])
 ])
-fig.update_layout(barmode='group', title='The preformence of the transactional pages')
+fig.update_layout(barmode='group', title='The performance of the transactional pages')
 fig.show()
 
 fig = go.Figure(data=[
